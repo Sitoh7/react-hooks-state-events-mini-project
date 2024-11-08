@@ -1,5 +1,3 @@
-import React from "react";
-
 function NewTaskForm() {
   return (
     <form className="new-task-form">
@@ -19,3 +17,4 @@ function NewTaskForm() {
 }
 
 export default NewTaskForm;
+
