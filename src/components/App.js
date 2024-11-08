@@ -1,41 +1,43 @@
-import React, {useState,useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import CategoryFilter from "./CategoryFilter";
 import NewTaskForm from "./NewTaskForm";
 import TaskList from "./TaskList";
-
 import { CATEGORIES, TASKS } from "../data";
-//console.log("Here's the data you're working with");
-//console.log({ CATEGORIES, TASKS });
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [taskList, setTaskList] = useState(TASKS)
+  // Add a key to track updates
+  const [updateKey, setUpdateKey] = useState(0)
 
-  const [selectedCategory,setSelectedCategory] = useState('All')
-  const [taskList,setTaskList] = useState(TASKS)
- //const [filteritem,setfilteritem]= useState("All")
+  function filter(category) {
+    setSelectedCategory(category)
+  }
 
-  function filter(e){
-  //console.log(e)
-    setSelectedCategory(e)
-    console.log(selectedCategory)
-    }
-
-
-  const listToDisplay=taskList.filter((data)=>{
+  const listToDisplay = taskList.filter((data) => {
     if (selectedCategory === "All") {
       return true;
-    } else {
-      return data.category === selectedCategory;
     }
+    return data.category === selectedCategory
   });
 
-
+  function onTaskFormSubmit(newTask) {
+   
+    
+    setTaskList(prevList => [...prevList, newTask]);
+    // Increment update key to force re-render
+    setUpdateKey(prev => prev + 1);
+  }
 
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter   data={CATEGORIES} filter={filter}/>
-      <NewTaskForm />
-      <TaskList  listData={listToDisplay}/>
+      <CategoryFilter categories={CATEGORIES} filter={filter}/>
+      <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={onTaskFormSubmit} />
+      <TaskList 
+        key={`${selectedCategory}-${updateKey}`} 
+        tasks={listToDisplay}
+      />
     </div>
   );
 }

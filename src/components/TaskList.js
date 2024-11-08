@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Task from "./Task";
 
-  function TaskList({listData}) {
-    const [listData1,setlistData] = useState(listData)
+  function TaskList({tasks}) {
+    const [listData1,setlistData] = useState(tasks)
     function del(e){
 
         console.log(e)
@@ -13,7 +13,7 @@ import Task from "./Task";
 
     <div className="tasks">
       {/* display a list of tasks using Task component */}
-      {listData1.map((data,i)=> <Task key={i} taskName={data.text} taskCategory={data.category} del={del}/>)}
+      {listData1.map((data,i)=> <Task key={i} text={data.text} category={data.category} del={del}/>)}
       
     </div>
   );

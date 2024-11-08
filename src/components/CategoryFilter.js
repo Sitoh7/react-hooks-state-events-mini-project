@@ -1,15 +1,15 @@
 import React,{useState} from "react";
 
 
-function CategoryFilter({data,filter}) {
+function CategoryFilter({categories,filter}) {
 
 
   const [selectedIndex, setSelectedIndex] = useState(null)
 
-  function filterList(e,data){
+  function filterList(e,categories){
 // console.log(e)
 setSelectedIndex(e)
-filter(data)
+filter(categories)
 //console.log(data)
   }
 
@@ -18,8 +18,8 @@ filter(data)
       <h5>Category filters</h5>
       {/* render <button> elements for each category here */}
  
-      {data.map((data,i)=>{
-        return <button className={selectedIndex === i ? "selected" : ""} key={i} onClick={()=>filterList(i,data)}>{data}</button>})}
+      {categories.map((data,i)=>{
+        return <button className={selectedIndex === i ? "selected" : null} key={i} onClick={()=>filterList(i,data)}>{data}</button>})}
       
       
    
